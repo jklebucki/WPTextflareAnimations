@@ -10,7 +10,7 @@
                     <strong>Delay:</strong> {{ config.delay }} ms<br>
                     <strong>Style Config:</strong> {{ config.styleConfig }}<br>
                     <strong>Text List:</strong> {{ config.textList.join(', ') }}<br>
-                    <strong>Shortcode:</strong> <input type="text" :value="'[textflare id=' + config.id + ']'" readonly @click="copyShortcode($event)" /><br>
+                    <strong>Shortcode:</strong> <input type="text" :value="'[textflare id=' + config.id + ']'" readonly @click="copyShortcode($event)" title="Shortcode" placeholder="Shortcode" /><br>
                     <div>
                         <span class="dashicons dashicons-edit" @click="editExistingConfig(index)"></span>
                         <span class="dashicons dashicons-trash" @click="removeConfig(index)"></span>
@@ -22,29 +22,29 @@
     <div class="config-section">
         <h2>{{ editConfig ? 'Edit Configuration' : 'New Configuration' }}</h2>
         <label for="animation">Animation:</label>
-        <select v-model="newConfig.animationId">
+        <select v-model="newConfig.animationId" title="Animation">
             <option v-for="animation in animations" :value="animation.id" :key="animation.id">
                 {{ animation.name }}
             </option>
         </select>
         <label for="duration">Duration (ms):</label>
-        <input type="number" v-model="newConfig.duration" />
+        <input type="number" v-model="newConfig.duration" title="Duration" placeholder="Enter duration in ms" />
         <label for="delay">Delay (ms):</label>
-        <input type="number" v-model="newConfig.delay" />
+        <input type="number" v-model="newConfig.delay" title="Delay" placeholder="Enter delay in ms" />
         <label for="height">Height (px):</label>
-        <input type="number" v-model="newConfig.height" />
+        <input type="number" v-model="newConfig.height" title="Height" placeholder="Enter height in px" />
         <div class="config-section">
             <h2>Style Configuration</h2>
             <label for="textColor">Text Color:</label>
-            <input type="color" v-model="newConfig.styleConfig.textColor" />
+            <input type="color" v-model="newConfig.styleConfig.textColor" title="Text Color" placeholder="Select text color" />
             <label for="fontSize">Font Size:</label>
-            <input type="text" v-model="newConfig.styleConfig.fontSize" />
+            <input type="text" v-model="newConfig.styleConfig.fontSize" title="Font Size" placeholder="Enter font size" />
             <label for="fontFamily">Font Family:</label>
-            <input type="text" v-model="newConfig.styleConfig.fontFamily" />
+            <input type="text" v-model="newConfig.styleConfig.fontFamily" title="Font Family" placeholder="Enter font family" />
             <label for="backgroundColor">Background Color:</label>
-            <input type="color" v-model="newConfig.styleConfig.backgroundColor" />
+            <input type="color" v-model="newConfig.styleConfig.backgroundColor" title="Background Color" placeholder="Select background color" />
             <label for="textAlign">Text Align:</label>
-            <select v-model="newConfig.styleConfig.textAlign">
+            <select v-model="newConfig.styleConfig.textAlign" title="Text Align">
                 <option value="left">Left</option>
                 <option value="center">Center</option>
                 <option value="right">Right</option>
@@ -53,7 +53,7 @@
         <div class="config-section">
             <h2>Text List</h2>
             <label for="newText">Add Text:</label>
-            <input type="text" v-model="newConfig.newText" />
+            <input type="text" v-model="newConfig.newText" title="New Text" placeholder="Enter new text" />
             <button @click="addText">Add</button>
             <ul>
                 <li v-for="(text, index) in newConfig.textList" :key="index">
