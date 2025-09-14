@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             { id: "zoom", name: "Zoom In/Out" },
                             { id: "fade", name: "Fade" },
                             { id: "cube", name: "Cube" },
+                            { id: "typewriter", name: "Typewriter" },
                         ],
                     };
                 },

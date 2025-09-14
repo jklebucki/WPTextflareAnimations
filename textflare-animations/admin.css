@@ -99,6 +99,10 @@ button:hover {
     animation-name: fade;
 }
 
+.textflare-item.typewriter {
+    opacity: 1;
+}
+
 @keyframes zoom-in-out {
     0%, 100% {
         transform: scale(0.5);

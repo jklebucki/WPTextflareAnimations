@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TextFlare Animations
  * Description: A WordPress plugin for animating text groups with configurable options.
- * Version: 1.0.1
+ * Version: 1.0.3
  * Author: AJK Software
  */
 
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'TEXTFLARE_VERSION', '1.0.2' );
+define( 'TEXTFLARE_VERSION', '1.0.3' );
 define( 'TEXTFLARE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TEXTFLARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -234,10 +234,33 @@ function textflare_render_shortcode( $atts ) {
             textElement.classList.add(animationClass);
             let index = 0;
 
-            setInterval(() => {
-                index = (index + 1) % textList.length;
-                textElement.textContent = textList[index];
-            }, duration + delay);
+            if (animationClass === "typewriter") {
+                function typeText(text, callback) {
+                    let i = 0;
+                    textElement.textContent = "";
+                    const interval = setInterval(() => {
+                        textElement.textContent += text[i];
+                        i++;
+                        if (i >= text.length) {
+                            clearInterval(interval);
+                            setTimeout(callback, delay);
+                        }
+                    }, 100); // 100ms per letter
+                }
+
+                function startTyping() {
+                    typeText(textList[index], () => {
+                        index = (index + 1) % textList.length;
+                        startTyping();
+                    });
+                }
+                startTyping();
+            } else {
+                setInterval(() => {
+                    index = (index + 1) % textList.length;
+                    textElement.textContent = textList[index];
+                }, duration + delay);
+            }
         });
     </script>
     <?php
