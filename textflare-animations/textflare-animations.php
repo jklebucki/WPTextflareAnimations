@@ -216,14 +216,41 @@ function textflare_render_shortcode( $atts ) {
 
     $style_config = json_decode( $config['style_config'], true );
     $text_list = json_decode( $config['text_list'], true );
+    
+    // Sprawdzamy czy to typewriter CSS animacja
+    $is_css_typewriter = in_array($config['animation_id'], ['typewriter-css', 'typewriter-advanced', 'reveal']);
 
     ob_start();
     ?>
     <div class="textflare-animation" style="color: <?php echo esc_attr( $style_config['textColor'] ); ?>; font-family: <?php echo esc_attr( $style_config['fontFamily'] ); ?>; background-color: <?php echo esc_attr( $style_config['backgroundColor'] ); ?>; text-align: <?php echo esc_attr( $style_config['textAlign'] ?? 'center' ); ?>; height: <?php echo esc_attr( $config['height'] ); ?>px; width: <?php echo esc_attr( $style_config['width'] ?? '100%' ); ?>;">
-        <div class="textflare-item" style="--<?php echo esc_attr( $config['animation_id'] ); ?>-duration: <?php echo esc_attr( $config['delay'] ); ?>ms; font-size: <?php echo esc_attr( $style_config['fontSize'] ); ?>px;">
-            <?php echo esc_html( $text_list[0] ); ?>
-        </div>
+        
+        <?php if ( $is_css_typewriter ): ?>
+            <!-- CSS Typewriter - każdy tekst w osobnym divie z cykliczną animacją -->
+            <?php 
+            $total_duration = $config['duration'] + $config['delay'];
+            $total_cycle = count($text_list) * $total_duration;
+            ?>
+            <?php foreach ( $text_list as $index => $text ): ?>
+                <div class="textflare-item <?php echo esc_attr( $config['animation_id'] ); ?>" 
+                     style="--reveal-duration: <?php echo esc_attr( $total_duration ); ?>ms; 
+                            font-size: <?php echo esc_attr( $style_config['fontSize'] ); ?>px; 
+                            animation-delay: <?php echo $index * $total_duration; ?>ms;
+                            position: absolute; 
+                            top: 0; 
+                            left: 0;
+                            width: 100%;">
+                    <?php echo esc_html( $text ); ?>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <!-- JavaScript animacje (stara metoda) -->
+            <div class="textflare-item" style="--<?php echo esc_attr( $config['animation_id'] ); ?>-duration: <?php echo esc_attr( $config['delay'] ); ?>ms; font-size: <?php echo esc_attr( $style_config['fontSize'] ); ?>px;">
+                <?php echo esc_html( $text_list[0] ); ?>
+            </div>
+        <?php endif; ?>
     </div>
+    
+    <?php if ( ! $is_css_typewriter ): ?>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const textList = <?php echo json_encode( $text_list ); ?>;
@@ -238,29 +265,37 @@ function textflare_render_shortcode( $atts ) {
                 function typeText(text, callback) {
                     let i = 0;
                     textElement.textContent = "";
-                    console.log('Starting typewriter for text:', text);
+                    
                     function typeNext() {
                         if (i < text.length) {
-                            textElement.textContent = text.substring(0, i + 1);
-                            console.log('Typed:', text.substring(0, i + 1));
+                            textElement.textContent += text.charAt(i);
                             i++;
-                            setTimeout(typeNext, 150);
+                            setTimeout(typeNext, 100); // Szybkość pisania
                         } else {
-                            console.log('Finished typing, clearing...');
-                            textElement.textContent = ""; // Clear after typing
-                            setTimeout(callback, Math.max(delay, 500)); // Minimum 500ms pause
+                            // Pokaż pełny tekst przez chwilę przed przejściem do następnego
+                            setTimeout(() => {
+                                // Animacja kasowania (opcjonalna)
+                                let eraseIndex = text.length;
+                                function eraseNext() {
+                                    if (eraseIndex > 0) {
+                                        textElement.textContent = text.substring(0, eraseIndex - 1);
+                                        eraseIndex--;
+                                        setTimeout(eraseNext, 50); // Szybkość kasowania
+                                    } else {
+                                        setTimeout(callback, 300); // Pauza przed następnym tekstem
+                                    }
+                                }
+                                eraseNext();
+                            }, Math.max(delay, 1500)); // Czas wyświetlania pełnego tekstu
                         }
                     }
                     typeNext();
                 }
 
                 function startTyping() {
-                    console.log('Starting typing for index:', index, 'text:', textList[index]);
                     typeText(textList[index], () => {
                         index = (index + 1) % textList.length;
-                        console.log('Moving to next text, new index:', index);
-                        // Always pause between texts
-                        setTimeout(startTyping, Math.max(delay, 500));
+                        startTyping();
                     });
                 }
                 startTyping();
@@ -272,6 +307,8 @@ function textflare_render_shortcode( $atts ) {
             }
         });
     </script>
+    <?php endif; ?>
+    
     <?php
     return ob_get_clean();
 }

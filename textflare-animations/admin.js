@@ -28,7 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
                             { id: "zoom", name: "Zoom In/Out" },
                             { id: "fade", name: "Fade" },
                             { id: "cube", name: "Cube" },
-                            { id: "typewriter", name: "Typewriter" },
+                            { id: "typewriter", name: "Typewriter (JS - stary)" },
+                            { id: "typewriter-css", name: "Typewriter CSS - Prosty" },
+                            { id: "typewriter-advanced", name: "Typewriter CSS - Z kasowaniem" },
+                            { id: "reveal", name: "Reveal - Gładki efekt" },
                         ],
                     };
                 },

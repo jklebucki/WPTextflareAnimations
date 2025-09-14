@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test TextFlare Animacji</title>
+    <link rel="stylesheet" href="textflare-animations/admin.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .demo-container {
+            background: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .demo-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .textflare-animation {
+            height: 60px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Nowych Animacji TextFlare</h1>
+    
+    <div class="demo-container">
+        <div class="demo-title">1. Typewriter CSS - Prosty</div>
+        <div class="textflare-animation">
+            <div class="textflare-item typewriter-css" style="--reveal-duration: 3000ms; font-size: 24px; animation-delay: 0ms; position: absolute; top: 0; left: 0; width: 100%;">
+                Witaj świecie!
+            </div>
+            <div class="textflare-item typewriter-css" style="--reveal-duration: 3000ms; font-size: 24px; animation-delay: 3000ms; position: absolute; top: 0; left: 0; width: 100%;">
+                To jest test animacji
+            </div>
+            <div class="textflare-item typewriter-css" style="--reveal-duration: 3000ms; font-size: 24px; animation-delay: 6000ms; position: absolute; top: 0; left: 0; width: 100%;">
+                CSS typewriter działa!
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-container">
+        <div class="demo-title">2. Typewriter CSS - Z kasowaniem</div>
+        <div class="textflare-animation">
+            <div class="textflare-item typewriter-advanced" style="--reveal-duration: 4000ms; font-size: 24px; animation-delay: 0ms; position: absolute; top: 0; left: 0; width: 100%;">
+                Pierwszy tekst
+            </div>
+            <div class="textflare-item typewriter-advanced" style="--reveal-duration: 4000ms; font-size: 24px; animation-delay: 4000ms; position: absolute; top: 0; left: 0; width: 100%;">
+                Drugi tekst się pojawi
+            </div>
+            <div class="textflare-item typewriter-advanced" style="--reveal-duration: 4000ms; font-size: 24px; animation-delay: 8000ms; position: absolute; top: 0; left: 0; width: 100%;">
+                I trzeci również!
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-container">
+        <div class="demo-title">3. Reveal - Gładki efekt</div>
+        <div class="textflare-animation">
+            <div class="textflare-item reveal" style="--reveal-duration: 2500ms; font-size: 24px; animation-delay: 0ms; position: absolute; top: 0; left: 0; width: 100%;">
+                Gładkie ujawnianie
+            </div>
+            <div class="textflare-item reveal" style="--reveal-duration: 2500ms; font-size: 24px; animation-delay: 2500ms; position: absolute; top: 0; left: 0; width: 100%;">
+                Bez efektu pisania
+            </div>
+            <div class="textflare-item reveal" style="--reveal-duration: 2500ms; font-size: 24px; animation-delay: 5000ms; position: absolute; top: 0; left: 0; width: 100%;">
+                Piękne i płynne!
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-container">
+        <div class="demo-title">Opis rozwiązań:</div>
+        <ul>
+            <li><strong>Typewriter CSS - Prosty:</strong> Klasyczny efekt maszyny do pisania z migającym kursorem</li>
+            <li><strong>Typewriter CSS - Z kasowaniem:</strong> Tekst się pojawia, zostaje chwilę, potem się kasuje</li>
+            <li><strong>Reveal:</strong> Gładkie ujawnianie tekstu bez efektu literka po literce</li>
+        </ul>
+        
+        <h3>Zalety nowego rozwiązania CSS:</h3>
+        <ul>
+            <li>✅ <strong>Wydajność:</strong> CSS animacje są obsługiwane przez GPU</li>
+            <li>✅ <strong>Płynność:</strong> Brak przerywania przez JavaScript</li>
+            <li>✅ <strong>Prostota:</strong> Mniej kodu, łatwiejsze w utrzymaniu</li>
+            <li>✅ <strong>Responsywność:</strong> Lepsze działanie na wszystkich urządzeniach</li>
+            <li>✅ <strong>Brak błędów:</strong> Nie ma problemów z powtarzającymi się literami</li>
+        </ul>
+    </div>
+</body>
+</html>

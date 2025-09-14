@@ -136,3 +136,72 @@ button:hover {
         opacity: 0.75;
     }
 }
+
+/* Nowe CSS typewriter animacje - znacznie lepsze niż JavaScript */
+.textflare-animation {
+    position: relative;
+}
+
+.textflare-item.typewriter-css {
+    font-family: 'Courier New', monospace;
+    border-right: 2px solid;
+    white-space: nowrap;
+    overflow: hidden;
+    width: fit-content;
+    animation: 
+        typing-simple calc(var(--reveal-duration, 2000) * 0.7) steps(30, end),
+        blink-cursor 0.75s step-end infinite,
+        show-hide-cycle var(--reveal-duration, 2000) infinite;
+    opacity: 0;
+}
+
+@keyframes typing-simple {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+@keyframes show-hide-cycle {
+    0%, 15% { opacity: 0; width: 0; }
+    20%, 80% { opacity: 1; }
+    85%, 100% { opacity: 0; }
+}
+
+@keyframes blink-cursor {
+    from, to { border-color: transparent; }
+    50% { border-color: currentColor; }
+}
+
+/* Alternatywna animacja typewriter z efektem kasowania */
+.textflare-item.typewriter-advanced {
+    font-family: 'Courier New', monospace;
+    border-right: 2px solid;
+    white-space: nowrap;
+    overflow: hidden;
+    width: fit-content;
+    animation: 
+        type-and-delete var(--reveal-duration, 3000) infinite,
+        blink-cursor 0.75s step-end infinite;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+@keyframes type-and-delete {
+    0%, 10% { width: 0; opacity: 1; }
+    40%, 60% { width: 100%; opacity: 1; }
+    90%, 100% { width: 0; opacity: 0; }
+}
+
+/* Gładka animacja reveal */
+.textflare-item.reveal {
+    overflow: hidden;
+    white-space: nowrap;
+    width: fit-content;
+    animation: reveal-smooth var(--reveal-duration, 2000) infinite;
+    opacity: 0;
+}
+
+@keyframes reveal-smooth {
+    0%, 20% { width: 0; opacity: 0; }
+    50%, 70% { width: 100%; opacity: 1; }
+    90%, 100% { width: 0; opacity: 0; }
+}
