@@ -254,12 +254,8 @@ function textflare_render_shortcode( $atts ) {
                 function startTyping() {
                     typeText(textList[index], () => {
                         index = (index + 1) % textList.length;
-                        if (index === 0) {
-                            // Longer pause between full cycles
-                            setTimeout(startTyping, Math.max(delay * 2, 1000));
-                        } else {
-                            startTyping();
-                        }
+                        // Always pause between texts
+                        setTimeout(startTyping, Math.max(delay, 500));
                     });
                 }
                 startTyping();
