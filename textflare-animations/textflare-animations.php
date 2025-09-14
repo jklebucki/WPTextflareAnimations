@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'TEXTFLARE_VERSION', '1.0.1' );
+define( 'TEXTFLARE_VERSION', '1.0.2' );
 define( 'TEXTFLARE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TEXTFLARE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -219,7 +219,7 @@ function textflare_render_shortcode( $atts ) {
 
     ob_start();
     ?>
-    <div class="textflare-animation" style="color: <?php echo esc_attr( $style_config['textColor'] ); ?>; font-family: <?php echo esc_attr( $style_config['fontFamily'] ); ?>; background-color: <?php echo esc_attr( $style_config['backgroundColor'] ); ?>; text-align: <?php echo esc_attr( $style_config['textAlign'] ?? 'center' ); ?>; height: <?php echo esc_attr( $config['height'] ); ?>px;">
+    <div class="textflare-animation" style="color: <?php echo esc_attr( $style_config['textColor'] ); ?>; font-family: <?php echo esc_attr( $style_config['fontFamily'] ); ?>; background-color: <?php echo esc_attr( $style_config['backgroundColor'] ); ?>; text-align: <?php echo esc_attr( $style_config['textAlign'] ?? 'center' ); ?>; height: <?php echo esc_attr( $config['height'] ); ?>px; width: <?php echo esc_attr( $style_config['width'] ?? '100%' ); ?>;">
         <div class="textflare-item" style="--<?php echo esc_attr( $config['animation_id'] ); ?>-duration: <?php echo esc_attr( $config['delay'] ); ?>ms; font-size: <?php echo esc_attr( $style_config['fontSize'] ); ?>px;">
             <?php echo esc_html( $text_list[0] ); ?>
         </div>
