@@ -238,15 +238,17 @@ function textflare_render_shortcode( $atts ) {
                 function typeText(text, callback) {
                     let i = 0;
                     textElement.textContent = "";
-                    const interval = setInterval(() => {
-                        textElement.textContent += text[i];
-                        i++;
-                        if (i >= text.length) {
-                            clearInterval(interval);
-                            textElement.textContent = ""; // Clear immediately after typing
-                            setTimeout(callback, delay);
+                    function typeNext() {
+                        if (i < text.length) {
+                            textElement.textContent += text[i];
+                            i++;
+                            setTimeout(typeNext, 150);
+                        } else {
+                            textElement.textContent = ""; // Clear after typing
+                            setTimeout(callback, Math.max(delay, 500)); // Minimum 500ms pause
                         }
-                    }, 150); // Slower typing speed: 150ms per letter
+                    }
+                    typeNext();
                 }
 
                 function startTyping() {
@@ -254,7 +256,7 @@ function textflare_render_shortcode( $atts ) {
                         index = (index + 1) % textList.length;
                         if (index === 0) {
                             // Longer pause between full cycles
-                            setTimeout(startTyping, delay * 2);
+                            setTimeout(startTyping, Math.max(delay * 2, 1000));
                         } else {
                             startTyping();
                         }
