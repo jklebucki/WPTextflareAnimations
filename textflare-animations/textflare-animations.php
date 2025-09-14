@@ -243,15 +243,21 @@ function textflare_render_shortcode( $atts ) {
                         i++;
                         if (i >= text.length) {
                             clearInterval(interval);
+                            textElement.textContent = ""; // Clear immediately after typing
                             setTimeout(callback, delay);
                         }
-                    }, 100); // 100ms per letter
+                    }, 150); // Slower typing speed: 150ms per letter
                 }
 
                 function startTyping() {
                     typeText(textList[index], () => {
                         index = (index + 1) % textList.length;
-                        startTyping();
+                        if (index === 0) {
+                            // Longer pause between full cycles
+                            setTimeout(startTyping, delay * 2);
+                        } else {
+                            startTyping();
+                        }
                     });
                 }
                 startTyping();
