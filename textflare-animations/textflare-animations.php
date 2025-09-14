@@ -238,12 +238,15 @@ function textflare_render_shortcode( $atts ) {
                 function typeText(text, callback) {
                     let i = 0;
                     textElement.textContent = "";
+                    console.log('Starting typewriter for text:', text);
                     function typeNext() {
                         if (i < text.length) {
-                            textElement.textContent += text[i];
+                            textElement.textContent = text.substring(0, i + 1);
+                            console.log('Typed:', text.substring(0, i + 1));
                             i++;
                             setTimeout(typeNext, 150);
                         } else {
+                            console.log('Finished typing, clearing...');
                             textElement.textContent = ""; // Clear after typing
                             setTimeout(callback, Math.max(delay, 500)); // Minimum 500ms pause
                         }
@@ -252,8 +255,10 @@ function textflare_render_shortcode( $atts ) {
                 }
 
                 function startTyping() {
+                    console.log('Starting typing for index:', index, 'text:', textList[index]);
                     typeText(textList[index], () => {
                         index = (index + 1) % textList.length;
+                        console.log('Moving to next text, new index:', index);
                         // Always pause between texts
                         setTimeout(startTyping, Math.max(delay, 500));
                     });
