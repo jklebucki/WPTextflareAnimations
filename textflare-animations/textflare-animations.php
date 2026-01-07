@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TextFlare Animations
  * Description: A WordPress plugin for animating text groups with configurable options.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: AJK Software
  */
 
