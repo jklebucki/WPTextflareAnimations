@@ -55,6 +55,7 @@ button:hover {
     align-items: center;
     height: 100px; /* Adjust as needed */
     overflow: hidden; /* Ensure the display area does not change size */
+    line-height: 2 !important;
 }
 
 .textflare-item {
